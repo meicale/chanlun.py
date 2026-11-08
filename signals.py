@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from chan import 观察者, create_single_signal
 
 
 def macd_金叉(观察员: 观察者, **kwargs) -> OrderedDict:
@@ -30,7 +31,9 @@ def macd_金叉(观察员: 观察者, **kwargs) -> OrderedDict:
     di = int(kwargs.get("di", 1))
     freq = kwargs.get("freq", "15分钟")
 
-    k1, k2, k3 = f"{freq}_D{di}#MACD#{fast}#{slow}#{signal}_MACD交叉V260601".split("_", 2)
+    k1, k2, k3 = f"{freq}_D{di}#MACD#{fast}#{slow}#{signal}_MACD交叉V260601".split(
+        "_", 2
+    )
 
     普K序列 = 观察员.普通K线序列
     if len(普K序列) < di + 2:

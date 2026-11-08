@@ -1,7 +1,8 @@
 # chanlun.py - 缠中说禅结构分析工具
+
 [![PyPI](https://img.shields.io/pypi/v/chanlun)](https://pypi.org/project/chanlun/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python 3.11+](https://img.shields.io/badge/python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Python 3.13+](https://img.shields.io/badge/python-3.13+-blue.svg)](https://www.python.org/downloads/)
 
 ## 📖 简介
 
@@ -19,13 +20,23 @@
 
 ### 安装依赖
 
+本项目使用 [uv](https://docs.astral.sh/uv/) 管理 Python 版本、依赖和虚拟环境：
+
 ```bash
-pip install -r requirements.txt
+uv sync
+```
+
+依赖声明在 `pyproject.toml`，精确版本锁定在 `uv.lock`。新增/移除依赖请使用：
+
+```bash
+uv add <package>
+uv remove <package>
 ```
 
 ### 启动服务
 
 ```bash
+uv run uvicorn main:app --reload --port 8080 --host localhost
 uvicorn main:app --reload --port 8080 --host localhost
 ```
 
@@ -39,27 +50,27 @@ uvicorn main:app --reload --port 8080 --host localhost
 http://127.0.0.1:8080/?debug=1&symbol=ethusd&generator=False&limit=1500&step=86400
 ```
 
-| 参数          | 说明                            |
-|-------------|-------------------------------|
-| `debug`     | 开启网页调试模式（如 `true`）            |
-| `symbol`    | 交易品种代码（如 `ethusd`、`btcusd`）   |
-| `limit`     | 数据数量（如 `1500` 根 K 线）          |
-| `step`      | K 线时间间隔（秒），如 `86400` 代表日线     |
-| `generator` | 数据生成器/分析器类型，详见下方表格            |
-| `**配置参数`    | 全量缠论配置相关参数 （如 `分析笔=False` 等等） |
+| 参数         | 说明                                            |
+| ------------ | ----------------------------------------------- |
+| `debug`      | 开启网页调试模式（如 `true`）                   |
+| `symbol`     | 交易品种代码（如 `ethusd`、`btcusd`）           |
+| `limit`      | 数据数量（如 `1500` 根 K 线）                   |
+| `step`       | K 线时间间隔（秒），如 `86400` 代表日线         |
+| `generator`  | 数据生成器/分析器类型，详见下方表格             |
+| `**配置参数` | 全量缠论配置相关参数 （如 `分析笔=False` 等等） |
 
 ### `generator` 参数详解
 
-| 值        | 说明                                |
-|----------|-----------------------------------|
-| `True`   | ~~随机生成测试数据~~                      |
-| `zqhc`   | 周期合成数据                            |
+| 值       | 说明                                                 |
+| -------- | ---------------------------------------------------- |
+| `True`   | ~~随机生成测试数据~~                                 |
+| `zqhc`   | 周期合成数据                                         |
 | `bi`     | ~~笔生成器，可通过 `points` 参数传入自定义顶底序列~~ |
-| `hc`     | 邮局数据同步回测                          |
-| `ex`     | 从文件读取数据（测试用）                      |
-| `last`   | 读取上一次保存的分析数据                      |
-| `lasthc` | 读取上一次保存的回测数据                      |
-| (默认)     | 从邮局数据接口获取真实数据                     |
+| `hc`     | 邮局数据同步回测                                     |
+| `ex`     | 从文件读取数据（测试用）                             |
+| `last`   | 读取上一次保存的分析数据                             |
+| `lasthc` | 读取上一次保存的回测数据                             |
+| (默认)   | 从邮局数据接口获取真实数据                           |
 
 ## 📸 预览
 
